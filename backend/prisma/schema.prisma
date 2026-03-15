@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  password  String
+  phone     String?
+  role      Role      @default(USER)
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Travel {
+  id             Int       @id @default(autoincrement())
+  title          String
+  description    String
+  destination    String
+  price          Float
+  images         String[]
+  availableDates DateTime[]
+  bookings       Booking[]
+}
+
+model Booking {
+  id            Int           @id @default(autoincrement())
+  userId        Int
+  travelId      Int
+  user          User          @relation(fields: [userId], references: [id])
+  travel        Travel        @relation(fields: [travelId], references: [id])
+  travelDate    DateTime
+  travelers     Int
+  totalPrice    Float
+  bookingStatus BookingStatus @default(PENDING)
+  paymentStatus PaymentStatus @default(PENDING)
+  payments      Payment[]
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model Payment {
+  id            Int           @id @default(autoincrement())
+  bookingId     Int
+  booking       Booking       @relation(fields: [bookingId], references: [id])
+  amount        Float
+  paymentMethod String
+  paymentStatus PaymentStatus @default(PENDING)
+  transactionId String?
+}

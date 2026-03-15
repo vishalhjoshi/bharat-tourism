@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: travel_booking_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: travel_booking
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: travel_booking_backend
+    restart: always
+    ports:
+      - '5050:5000'
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/travel_booking?schema=public
+      - JWT_SECRET=supersecretkey123
+      - PORT=5000
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: travel_booking_frontend
+    restart: always
+    ports:
+      - '8080:80'
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/playfair-display/800.css";
+@import "@fontsource/montserrat/300.css";
+@import "@fontsource/montserrat/400.css";
+@import "@fontsource/montserrat/500.css";
+@import "@fontsource/montserrat/600.css";
+
+@theme {
+  --color-primary-50: #fbf8f5;
+  --color-primary-100: #f4eee7;
+  --color-primary-200: #e8dbcc;
+  --color-primary-300: #d6bfa8;
+  --color-primary-400: #c29d7e;
+  --color-primary-500: #a97c5a;
+  --color-primary-600: #93654b;
+  --color-primary-700: #7b5240;
+  --color-primary-800: #654438;
+  --color-primary-900: #52392f;
+  --color-primary-950: #2d1e18;
+
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Montserrat", sans-serif;
+}
+
+:root {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #1a1a1a;
+  background-color: #fbf8f5;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #fcfbf9;
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+/* Base Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #e6e6e6;
+  }
+}
